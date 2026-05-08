@@ -63,23 +63,23 @@
 
 ```
 ChallengeApp/
-├── Program.cs                 # Minimal API with / and /health endpoints
-├── ChallengeApp.csproj        # .NET 9 project file
-├── Dockerfile                 # Multi-stage Docker build
-├── Jenkinsfile                # CI/CD pipeline definition
+├── Program.cs                 
+├── ChallengeApp.csproj        
+├── Dockerfile                 
+├── Jenkinsfile                
 ├── README.md
 ├── terraform/
-│   ├── main.tf                # Module orchestration
-│   ├── variables.tf           # Global variables (region, project name)
-│   ├── outputs.tf             # ALB URL, Jenkins URL, ECR URL
-│   ├── providers.tf           # Terraform + AWS provider config
-│   ├── backend.tf             # S3 remote state (commented out)
+│   ├── main.tf                
+│   ├── variables.tf           
+│   ├── outputs.tf             
+│   ├── providers.tf           
+│   ├── backend.tf             
 │   └── modules/
-│       ├── networking/        # VPC, Subnets, IGW, Route Tables
-│       ├── security/          # Security Groups (ALB, ECS, Jenkins)
-│       ├── alb/               # Application Load Balancer, Target Group
-│       ├── ecs/               # ECR, ECS Cluster, Task Definition, Service
-│       └── jenkins/           # EC2 instance + IAM profile + install script
+│       ├── networking/        
+│       ├── security/          
+│       ├── alb/               
+│       ├── ecs/               
+│       └── jenkins/           
 ```
 
 ---
@@ -119,7 +119,7 @@ After apply completes, note the outputs:
 - `jenkins_url` — Jenkins dashboard URL
 - `ecr_repository_url` — ECR repo for Docker images
 
-> **Note on Initial State:** After Terraform provisioning, your ECS service will temporarily be in a "failing" state because the ECR repository is completely empty. This is expected! Running the Jenkins pipeline for the first time will automatically build the image, push it to ECR, and force the ECS deployment to resolve this.
+> **Note on Initial State:** After Terraform provisioning, the ECS service will temporarily be in a "failing" state because the ECR repository is completely empty. Running the Jenkins pipeline for the first time will automatically build the image, push it to ECR, and force the ECS deployment to resolve this.
 
 ### 3. Configure Jenkins
 
@@ -131,7 +131,7 @@ After apply completes, note the outputs:
    - Run: `sudo cat /var/lib/jenkins/secrets/initialAdminPassword`
 3. Install suggested plugins
 4. Create a Pipeline job pointing to the repository's `Jenkinsfile`
-5. Update the `ECR_REPO` environment variable in the Jenkinsfile with your ECR URL
+5. Update the `ECR_REPO` environment variable in the Jenkinsfile with the ECR URL
 
 ### 4. Verify the Application
 
