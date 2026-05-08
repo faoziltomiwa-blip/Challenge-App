@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-// Basic Root endpoint to just display any message confirming the API is running, along with environment info and timestamp
+// Basic Root endpoint to display a message confirming the API is running, along with environment info and timestamp
 app.MapGet("/", () => new {
     Message = "API is running!",
     Environment = builder.Environment.EnvironmentName,
