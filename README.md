@@ -77,7 +77,8 @@ ChallengeApp/
 │   └── modules/
 │       ├── networking/        
 │       ├── security/          
-│       ├── alb/               
+│       ├── alb/    
+│       ├── ecr/             
 │       ├── ecs/               
 │       └── jenkins/           
 ```
@@ -90,7 +91,7 @@ ChallengeApp/
 - **Terraform** >= 1.5.0
 - **Docker** installed locally (for testing)
 - **AWS CLI** v2
-- An **EC2 Key Pair** created in your target region (if SSH access to Jenkins is needed)
+- An **EC2 Key Pair** created in your target region (if SSH access to Jenkins is needed). If not, use EC2 Instance Connect to access the instance in the browser to retrieve the initial admin password.
 
 ---
 
@@ -178,7 +179,7 @@ The Jenkins pipeline (`Jenkinsfile`) automates the full delivery lifecycle:
 | **Fargate over EC2 launch type** | Serverless compute eliminates EC2 fleet management. Right-sized for a lightweight API. |
 | **Public subnets for ECS** | Simplifies architecture by avoiding NAT Gateway costs (~$32/month). Fargate tasks get public IPs with security group restricting inbound to ALB only. |
 | **Modular Terraform** | Each concern (networking, security, ALB, ECR, ECS, Jenkins) is isolated for reusability and clarity. |
-| **Multi-stage Dockerfile** | Build stage uses the full SDK; runtime stage uses the slim ASP.NET image (~220MB vs ~900MB). |
+| **Multi-stage Dockerfile** | Build stage uses the full SDK, runtime stage uses the slim ASP.NET image (~220MB vs ~900MB). |
 | **IAM Instance Profile for Jenkins** | Avoids storing AWS credentials. Jenkins authenticates via the EC2 metadata service. |
 | **Health check on /health** | Dedicated health endpoint prevents ALB from routing traffic to unhealthy containers. |
 | **Container port 8080** | ASP.NET default for non-root containers. Avoids running as root inside the container. |
