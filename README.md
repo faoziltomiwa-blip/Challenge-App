@@ -153,9 +153,7 @@ The Jenkins pipeline (`Jenkinsfile`) automates the full delivery lifecycle:
 | Stage | Description |
 |-------|-------------|
 | **Checkout** | Pulls latest code from the Git repository |
-| **Build** | Runs `dotnet restore` and `dotnet build` |
-| **Test** | Runs `dotnet test` (basic validation) |
-| **Docker Build** | Builds the container image using the multi-stage Dockerfile |
+| **Docker Build** | Builds the container image using the multi-stage Dockerfile (which safely handles the .NET compilation inside the container) |
 | **Push to ECR** | Authenticates with ECR via IAM instance profile and pushes the image |
 | **Deploy to ECS** | Forces a new ECS deployment to pull the latest image |
 
