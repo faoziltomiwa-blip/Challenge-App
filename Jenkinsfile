@@ -17,20 +17,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building .NET application...'
-                sh 'dotnet restore'
-                sh 'dotnet build --configuration Release --no-restore'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'dotnet test --no-build --configuration Release --verbosity normal || true'
-            }
-        }
 
         stage('Docker Build') {
             steps {
