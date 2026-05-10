@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush()
+    }
+
     environment {
         AWS_REGION       = 'eu-west-2'
         ECR_REPO         = '825555019555.dkr.ecr.eu-west-2.amazonaws.com/devops-challenge'
